@@ -42,3 +42,4 @@ connect-pi.sh
 cmake_install.cmake
 CMakeCache.txt
 matrix_minds
+CMakeFiles
