@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/matrix_minds.dir/src/main.cpp.o -o matrix_minds  -L./lib/matrix/lib -lrt -lm -lrgbmatrix -lpthread 
