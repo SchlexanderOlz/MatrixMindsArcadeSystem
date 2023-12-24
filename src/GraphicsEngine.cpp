@@ -3,10 +3,13 @@
 
 using namespace matrix_minds;
 
-void GraphicsEngine::render(const shared_ptr<DisplayItem> display_item) {
-  const Shape mesh = display_item->getMesh();
+void GraphicsEngine::render(const Shape shape) {
+  for (const Line line : shape) {
+    render(line);
+  }
+}
 
-  for (const Line line : mesh) {
+void GraphicsEngine::render(const Line line) {
     const uint x = (line.getPosX() + 1.0) * this->getSizeX() - this->getSizeX();
     const uint y = (line.getPosY() + 1.0) * this->getSizeY() - this->getSizeY();
     const uint height = line.getHeight() * this->getSizeY();
@@ -19,6 +22,4 @@ void GraphicsEngine::render(const shared_ptr<DisplayItem> display_item) {
     }
 
     off_screen_canvas_->SetPixels(x, y, width, height, color);
-  }
 }
-

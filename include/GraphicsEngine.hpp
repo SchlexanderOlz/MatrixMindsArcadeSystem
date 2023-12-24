@@ -17,7 +17,8 @@ namespace matrix_minds {
 
     public:
       GraphicsEngine(unique_ptr<RGBMatrix> matrix) : matrix_(std::move(matrix)), off_screen_canvas_(matrix->CreateFrameCanvas()) {}
-      void render(const shared_ptr<DisplayItem> display_item);
+      void render(const Shape shape);
+      void render(const Line line);
       inline void show() {
         this->matrix_->SwapOnVSync(this->off_screen_canvas_.get());
         auto tmp = unique_ptr<FrameCanvas>(matrix_->CreateFrameCanvas());

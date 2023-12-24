@@ -9,7 +9,7 @@
 using namespace std;
 
 namespace matrix_minds {
-  class App : public DisplayItem {
+  class App {
     protected:
       shared_ptr<GraphicsEngine> engine;
     public:
