@@ -6,6 +6,7 @@
 *.lo
 *.o
 *.obj
+*.so
 
 # Precompiled Headers
 *.gch
@@ -30,3 +31,14 @@
 *.exe
 *.out
 *.app
+
+# Custom
+lib
+Makefile
+.ccls-cache
+.ccls
+compile-commands.json
+connect-pi.sh
+cmake_install.cmake
+CMakeCache.txt
+matrix_minds

@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/schlexander/matrix-raspi/Code/MatrixMindsArcadeSystem",
+  "command": "/sbin/c++  -I/home/schlexander/matrix-raspi/Code/MatrixMindsArcadeSystem/lib/matrix/include  -o CMakeFiles/matrix_minds.dir/src/main.cpp.o -c /home/schlexander/matrix-raspi/Code/MatrixMindsArcadeSystem/src/main.cpp",
+  "file": "/home/schlexander/matrix-raspi/Code/MatrixMindsArcadeSystem/src/main.cpp",
+  "output": "CMakeFiles/matrix_minds.dir/src/main.cpp.o"
+}
+]

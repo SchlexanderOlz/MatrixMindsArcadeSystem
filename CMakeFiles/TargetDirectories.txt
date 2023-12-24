@@ -1,0 +1,4 @@
+/home/pi/Code/MatrixMindsArcadeSystem/CMakeFiles/rebuild_cache.dir
+/home/pi/Code/MatrixMindsArcadeSystem/CMakeFiles/edit_cache.dir
+/home/pi/Code/MatrixMindsArcadeSystem/CMakeFiles/run.dir
+/home/pi/Code/MatrixMindsArcadeSystem/CMakeFiles/matrix_minds.dir
