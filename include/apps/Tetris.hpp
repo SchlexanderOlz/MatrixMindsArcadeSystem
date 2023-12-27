@@ -14,6 +14,7 @@ namespace matrix_minds {
   class Tetris : public App {
     private:
       tetris::GameEnv game;
+      mutex mtx;
       
       volatile bool exit = false;
 

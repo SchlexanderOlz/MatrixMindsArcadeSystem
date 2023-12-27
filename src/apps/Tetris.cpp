@@ -67,6 +67,7 @@ void Tetris::startGame() {
   volatile bool has_ended = false;
   auto joinhandle = thread([this, &has_ended]() {
     while (!has_ended) {
+      unique_lock<mutex> lock(this->mtx);
       try {
           this->game.moveShapeDown();
       } catch (CantMoveException) {
@@ -81,15 +82,19 @@ void Tetris::startGame() {
       } 
       this->drawState();
       this->engine->show();
+      lock.unlock();
       usleep(500000);
     }
   });
 
   while (!has_ended) {
     try {
-      this->performIngameAction(this->controler->getAction());
+      Action action = this->controler->getAction();
+      unique_lock<mutex> lock(this->mtx);
+      this->performIngameAction(action);
       this->drawState();
       this->engine->show();
+      lock.unlock();
       usleep(100);
     } catch (GameEnvOverflowException) { has_ended = true; }
     catch (CantMoveException) {}
@@ -110,8 +115,8 @@ void Tetris::mapBlock(const tetris::Block* block, uint x, uint y) const {
   constexpr float mr = 0.0;
   constexpr float mb = 0.00;
 
-  float x_pos = ((x * (1.0 - ml - mr)) * 2.0) / (float)this->game.getSizeX() + ml - 0.5;
-  float y_pos = ((y * (1.0 - mt - mb)) * 2.0) / (float)this->game.getSizeY() + mt - 0.5;
+  float x_pos = ((x * (1.0 - ml - mr)) * 2.0) / (float)this->game.getSizeX() + ml - 1.0;
+  float y_pos = ((y * (1.0 - mt - mb)) * 2.0) / (float)this->game.getSizeY() + mt - 1.0;
   float width = ((1.0 - ml - mr) / (float)this->game.getSizeX());
   float height = ((1.0 - ml - mr) / (float)this->game.getSizeY());
   std::cout << "X: " << x_pos << " Y: " << y_pos << " Width: " << width << endl;
