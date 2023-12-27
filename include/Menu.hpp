@@ -7,20 +7,24 @@
 #include "App.hpp"
 #include "AppFactory.hpp"
 #include "GraphicsEngine.hpp"
+#include "Controler.hpp"
 
 using namespace std;
 
 namespace matrix_minds {
   typedef vector<Line> Icon;
 
-  class Menu {
+  class Menu : public App {
     private:
-      shared_ptr<GraphicsEngine> engine;
-      vector<pair<shared_ptr<AppFactory>, Icon>> apps;
+      vector<pair<unique_ptr<AppFactory>, Icon>> apps; // Screams for an iterator
+      size_t focused_app_idx = 0;
+
+      void drawState();
     public:
-      Menu(shared_ptr<GraphicsEngine> engine) : engine(engine) {}
-      void render();
-      inline void registerApp(shared_ptr<AppFactory> factory, Icon icon) { this->apps.push_back(std::make_pair(factory, icon)); }
+      Menu(shared_ptr<GraphicsEngine> engine, shared_ptr<Controler> controler) : App(engine, controler) {}
+      void run() override;
+      void performAction(const Action action);
+      inline void registerApp(unique_ptr<AppFactory> factory, Icon icon) { this->apps.push_back(std::make_pair(std::move(factory), icon)); }
   };
 }
 #endif // MENU

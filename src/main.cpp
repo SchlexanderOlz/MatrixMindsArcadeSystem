@@ -1,15 +1,19 @@
 #include <iostream>
 #include <signal.h>
-#include "../include/GraphicsEngine.hpp"
 
+#include "Menu.hpp"
+#include "KeyboardControler.hpp"
+#include "apps/TetrisFactory.hpp"
+
+using namespace matrix_minds;
 
 static volatile bool interrupt_received = false;
 static void interruptHandler(int signo) {
+  exit(0);
   interrupt_received = true;
 }
 
 int main (int argc, char *argv[]) {
-  const char *demo_parameter = NULL;
   RGBMatrix::Options matrix_options;
   rgb_matrix::RuntimeOptions runtime_opt;
 
@@ -18,25 +22,30 @@ int main (int argc, char *argv[]) {
   matrix_options.chain_length = 1;
   matrix_options.parallel = 1;
 
-  if (optind < argc) {
-    demo_parameter = argv[optind];
-  }
-
-  RGBMatrix *matrix = RGBMatrix::CreateFromOptions(matrix_options, runtime_opt);
+  unique_ptr<RGBMatrix> matrix = unique_ptr<RGBMatrix>(RGBMatrix::CreateFromOptions(matrix_options, runtime_opt));
   if (matrix == NULL)
     return 1;
 
   printf("Size: %dx%d. Hardware gpio mapping: %s\n",
          matrix->width(), matrix->height(), matrix_options.hardware_mapping);
 
-  Canvas *canvas = matrix;
 
   signal(SIGTERM, interruptHandler);
   signal(SIGINT, interruptHandler);
 
   printf("Press <CTRL-C> to exit and reset LEDs\n");
 
-  delete canvas;
+  shared_ptr<GraphicsEngine> engine = std::make_shared<GraphicsEngine>(std::move(matrix));
+  shared_ptr<Controler> controler = std::make_shared<KeyboardControler>();
+  Tetris menu(engine, controler);
+
+  #ifdef SOS
+  unique_ptr<TetrisFactory> tetris_factory = std::make_unique<TetrisFactory>(engine, controler);
+  Line tmp(0.1, 0.1, 0.1, 0.1, Color(0, 100, 0));
+  Line tmp2(0.1, 0.2, 0.1, 0.1, Color(0, 0, 100));
+  menu.registerApp(std::move(tetris_factory), {tmp, tmp2});
+  #endif
+  menu.run();
 
   printf("Received CTRL-C. Exiting.\n");
   return 0;

@@ -8,7 +8,7 @@
 namespace matrix_minds {
   class AppFactory {
     public:
-      virtual shared_ptr<App> buildApp() = 0;
+      virtual shared_ptr<App> buildApp() const = 0;
   };
 }
 

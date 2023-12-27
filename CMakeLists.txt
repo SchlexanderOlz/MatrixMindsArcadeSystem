@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 project(MatrixMindsArcade)
 
-set(SOURCES
-    src/main.cpp
-)
+set(SOURCE_DIR "src")
+
+file(GLOB_RECURSE SOURCES "${SOURCE_DIR}/*.cpp")
 
 set(INCLUDE_DIRS
     lib/matrix/include
+    include/
 )
 
 set(LIBRARY_DIR
@@ -26,8 +27,11 @@ target_link_libraries(matrix_minds PRIVATE
     -lpthread
 )
 
+target_compile_features(matrix_minds PRIVATE cxx_std_17)
+
 add_custom_target(run
     COMMAND ./matrix_minds    
     DEPENDS matrix_minds    
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
+
