@@ -18,7 +18,7 @@ void GraphicsEngine::render(const Line line) {
 
     Color template_color = line.getColor();
     Color* color = new Color[height * width]; // Check if the width is necessary
-    for (size_t i = 0; i < height * width; ++i) {
+    for (size_t i = 0; i <= height * width; ++i) {
       color[i] = template_color; 
     }
 

@@ -29,13 +29,19 @@ void Tetris::performTitleScreenAction(const Action action) {
 void Tetris::performIngameAction(const Action action) {
   switch (action) {
     case Action::AlternativeRight:
-      this->game.turnShapeRight();
+      try {
+        this->game.turnShapeRight();
+      } catch (CantMoveException) {}
       break;
     case Action::AlternativeLeft: 
-      this->game.turnShapeLeft();
+      try {
+        this->game.turnShapeLeft();
+      } catch (CantMoveException) {}
       break;
     case Action::Right:
-      this->game.moveShapeRight();
+      try {
+        this->game.moveShapeRight();
+      } catch (CantMoveException) {}
       break;
     case Action::Down:
       try {
@@ -48,7 +54,9 @@ void Tetris::performIngameAction(const Action action) {
       }
       break;
     case Action::Left:
-      this->game.moveShapeLeft();
+      try {
+        this->game.moveShapeLeft();
+      } catch (CantMoveException) {}
       break;
     default:
       return;
@@ -61,9 +69,7 @@ void Tetris::startGame() {
     while (!has_ended) {
       try {
           this->game.moveShapeDown();
-          this->drawState();
-          this->engine->show();
-      } catch (const CantMoveException& e) {
+      } catch (CantMoveException) {
           try {
             this->game.appendShape();
             this->game.newShape();
@@ -73,7 +79,9 @@ void Tetris::startGame() {
           has_ended = true;
         }
       } 
-      usleep(50000);
+      this->drawState();
+      this->engine->show();
+      usleep(500000);
     }
   });
 
@@ -96,25 +104,41 @@ void Tetris::endGame() {
 
 }
 
+void Tetris::mapBlock(const tetris::Block* block, uint x, uint y) const {
+  constexpr float ml = 0.0;
+  constexpr float mt = 0.00;
+  constexpr float mr = 0.0;
+  constexpr float mb = 0.00;
+
+  float x_pos = ((x * (1.0 - ml - mr)) * 2.0) / (float)this->game.getSizeX() + ml - 0.5;
+  float y_pos = ((y * (1.0 - mt - mb)) * 2.0) / (float)this->game.getSizeY() + mt - 0.5;
+  float width = ((1.0 - ml - mr) / (float)this->game.getSizeX());
+  float height = ((1.0 - ml - mr) / (float)this->game.getSizeY());
+  std::cout << "X: " << x_pos << " Y: " << y_pos << " Width: " << width << endl;
+  Line line(x_pos, y_pos, height, width, Tetris::translateColor(block->getColor()));
+  this->engine->render(std::move(line));
+
+}
+
 void Tetris::drawState() const {
-  std::cout << "ssoososenbinder" << endl;
   auto blocks = this->game.getBlocks();
+  tetris::Shape shape = this->game.getShape();
+  auto shape_coord = shape.getCoordinate();
+  auto shape_blocks = shape.getBlocks();
+
+  for (size_t y = 0; y < shape_blocks.size(); ++y) {
+    for (size_t x = 0; x < shape_blocks[0].size(); ++x) {
+      const tetris::Block* block = shape_blocks[y][x];
+      if (block == nullptr) continue;
+      this->mapBlock(block, x + shape_coord.x, y + shape_coord.y);
+    }
+  }
+
   for (size_t y = 0; y < this->game.getSizeY(); ++y) {
     for (size_t x = 0; x < this->game.getSizeX(); ++x) {
       const tetris::Block* block = blocks[y][x];
       if (block == nullptr) continue;
-      constexpr float ml = 0.0;
-      constexpr float mt = 0.00;
-      constexpr float mr = 0.0;
-      constexpr float mb = 0.00;
-
-      float x_pos = ((x * (1.0 - ml - mr)) * 2.0) / (float)this->game.getSizeX() + ml - 0.5;
-      float y_pos = ((y * (1.0 - mt - mb)) * 2.0) / (float)this->game.getSizeY() + mt - 0.5;
-      float width = ((1.0 - ml - mr) / (float)this->game.getSizeX());
-      float height = ((1.0 - ml - mr) / (float)this->game.getSizeY());
-      std::cout << "X: " << x_pos << " Y: " << y_pos << " Width: " << width << endl;
-      Line line(x_pos, y_pos, height, width, Tetris::translateColor(block->getColor()));
-      this->engine->render(std::move(line));
+      this->mapBlock(block, x, y);
     }
   }
 }

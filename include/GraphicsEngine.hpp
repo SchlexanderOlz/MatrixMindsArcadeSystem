@@ -24,6 +24,7 @@ namespace matrix_minds {
       inline void show() {
         this->matrix_->Clear();
         this->off_screen_canvas_ = this->matrix_->SwapOnVSync(this->off_screen_canvas_);
+        this->off_screen_canvas_ = this->matrix_->CreateFrameCanvas();
       }
       uint getSizeX() const { return this->matrix_->width() - 1; }
       uint getSizeY() const { return this->matrix_->height() - 1; }

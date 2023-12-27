@@ -19,6 +19,5 @@ Action KeyboardControler::getAction() {
     case 'd':
       return Action::AlternativeRight;
   }
-  std::cout << (int)KeyboardControler::getch() << std::endl;
   return Action::Invalid;
 }
