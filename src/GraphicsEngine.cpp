@@ -10,10 +10,10 @@ void GraphicsEngine::render(const Shape shape) {
 }
 
 void GraphicsEngine::render(const Line line) {
-    const uint x = (line.getPosX() + 1.0) * ((float)this->getSizeX() / 2.0);
-    const uint y = (line.getPosY() + 1.0) * ((float)this->getSizeY() / 2.0);
-    const uint height = std::ceil(line.getHeight() * (float)this->getSizeY());
-    const uint width = std::ceil(line.getWidth() * (float)this->getSizeX());
+    const uint x = std::floor((line.getPosX() + 1.0) * ((double)this->getSizeX() / 2.0));
+    const uint y = std::floor((line.getPosY() + 1.0) * ((double)this->getSizeY() / 2.0));
+    const uint height = std::ceil(line.getHeight() * (double)this->getSizeY());
+    const uint width = std::ceil(line.getWidth() * (double)this->getSizeX());
     std::cout << "OX: " << x << " OY: " << y << " Heigt: " << height << " Width: " << width << endl;
 
     Color template_color = line.getColor();

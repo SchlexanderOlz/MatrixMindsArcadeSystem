@@ -22,12 +22,11 @@ namespace matrix_minds {
       void render(const Shape shape);
       void render(const Line line);
       inline void show() {
-        this->matrix_->Clear();
         this->off_screen_canvas_ = this->matrix_->SwapOnVSync(this->off_screen_canvas_);
         this->off_screen_canvas_ = this->matrix_->CreateFrameCanvas();
       }
-      uint getSizeX() const { return this->matrix_->width(); }
-      uint getSizeY() const { return this->matrix_->height(); }
+      uint getSizeX() const { return this->matrix_->width() - 1; }
+      uint getSizeY() const { return this->matrix_->height() - 1; }
   };
 }
 #endif

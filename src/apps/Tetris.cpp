@@ -110,16 +110,15 @@ void Tetris::endGame() {
 }
 
 void Tetris::mapBlock(const tetris::Block* block, uint x, uint y) const {
-  constexpr float ml = 0.0;
-  constexpr float mt = 0.00;
-  constexpr float mr = 0.0;
-  constexpr float mb = 0.00;
+  constexpr double ml = 0.2;
+  constexpr double mt = 0.0;
+  constexpr double mr = 0.2;
+  constexpr double mb = 0.0;
 
-  float x_pos = ((x * (1.0 - ml - mr)) * 2.0) / (float)this->game.getSizeX() + ml - 1.0;
-  float y_pos = ((y * (1.0 - mt - mb)) * 2.0) / (float)this->game.getSizeY() + mt - 1.0;
-  float width = ((1.0 - ml - mr) / (float)this->game.getSizeX());
-  float height = ((1.0 - ml - mr) / (float)this->game.getSizeY());
-  std::cout << "X: " << x_pos << " Y: " << y_pos << " Width: " << width << endl;
+  double x_pos = ((x * (1.0 - ml - mr)) * 2.0) / (double)this->game.getSizeX() + ml - 1.0;
+  double y_pos = ((y * (1.0 - mt - mb)) * 2.0) / (double)this->game.getSizeY() + mt - 1.0;
+  double width = ((1.0 - ml - mr) / (double)this->game.getSizeX()) / 2.0;
+  double height = ((1.0 - mt - mb) / (double)this->game.getSizeY()) / 2.0;
   Line line(x_pos, y_pos, height, width, Tetris::translateColor(block->getColor()));
   this->engine->render(std::move(line));
 
@@ -139,8 +138,8 @@ void Tetris::drawState() const {
     }
   }
 
-  for (size_t y = 0; y < this->game.getSizeY(); ++y) {
-    for (size_t x = 0; x < this->game.getSizeX(); ++x) {
+  for (size_t y = 0; y <= this->game.getSizeY(); ++y) {
+    for (size_t x = 0; x <= this->game.getSizeX(); ++x) {
       const tetris::Block* block = blocks[y][x];
       if (block == nullptr) continue;
       this->mapBlock(block, x, y);

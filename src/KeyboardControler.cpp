@@ -8,11 +8,11 @@ Action KeyboardControler::getAction() {
       return Action::Confirm;
     case 'q':
       return Action::Quit;
-    case 68: 
+    case 67: 
       return Action::Left;
     case 66:
       return Action::Down;
-    case 67: 
+    case 68: 
       return Action::Right;
     case 'a':
       return Action::AlternativeLeft;

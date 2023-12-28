@@ -1,8 +1,8 @@
 #ifndef GAMEENV 
 #define GAMEENV
 
-#define X_SIZE 32 // TMP
-#define Y_SIZE 32 // TMP
+#define X_SIZE 10 // TMP
+#define Y_SIZE 16 // TMP
 
 
 #include <array>
