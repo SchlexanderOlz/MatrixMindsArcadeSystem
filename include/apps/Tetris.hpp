@@ -28,7 +28,10 @@ namespace matrix_minds {
       inline void exitApp() { this->exit = true; }
 
       static Color translateColor(const tetris::Color color);
+      void mapBlock(const tetris::Block* block, uint x, uint y, const double y_offset, const double x_offset) const;
       void mapBlock(const tetris::Block* block, uint x, uint y) const;
+      void mapShape(const tetris::Shape& shape, const double x_offset, const double y_offset) const;
+      void mapShape(const tetris::Shape& shape) const;
     public:
       Tetris(shared_ptr<GraphicsEngine> engine, shared_ptr<Controler> controler) : App(engine, controler), game(tetris::GameEnv()) {}
       void run() override;
