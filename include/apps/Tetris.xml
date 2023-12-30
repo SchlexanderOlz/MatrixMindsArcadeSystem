@@ -1,0 +1,7 @@
+<Tetris>
+  <textfield id="next-shape-name" x="0.8" y="0.8">
+    Hello
+  </textfield>
+  <box id="next-shape" x="0.8" y="0.75" width="0.2" height="0.2"></box>
+  <box id="game" x="-0.1" y="0.0" width="0.8" height="1.0" border-color="white"></box>
+</Tetris>

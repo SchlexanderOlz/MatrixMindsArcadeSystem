@@ -24,7 +24,7 @@ namespace matrix_minds {
       Menu(shared_ptr<GraphicsEngine> engine, shared_ptr<Controler> controler) : App(engine, controler) {}
       void run() override;
       void performAction(const Action action);
-      inline void registerApp(unique_ptr<AppFactory> factory, Icon icon) { this->apps.push_back(std::make_pair(std::move(factory), icon)); }
+      inline void registerApp(unique_ptr<AppFactory> factory, Icon icon, string name) { this->apps.push_back(std::make_pair(std::move(factory), icon)); }
   };
 }
 #endif // MENU

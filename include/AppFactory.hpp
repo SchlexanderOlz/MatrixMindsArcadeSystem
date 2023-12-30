@@ -2,12 +2,23 @@
 #define APP_FACTORY
 
 #include <memory>
+#include <pugixml.hpp>
 
 #include "App.hpp"
 
 namespace matrix_minds {
   class AppFactory {
+    protected:
+      pugi::xml_node graphic_node;
+      const char* app_name;
+
     public:
+      AppFactory(const char* xml_path, const char* app_name) : app_name(app_name) {
+        pugi::xml_document doc;
+        int res = doc.load_file(xml_path);
+        if (!res) throw std::runtime_error("File not present at the requested location");
+        this->graphic_node = doc.child(app_name);
+      }
       virtual shared_ptr<App> buildApp() const = 0;
   };
 }
