@@ -7,10 +7,12 @@
 
 using namespace std;
 
-namespace matrix_minds {
-  class DisplayItem {
-    public:
-      virtual vector<Line> getMesh() = 0;
+namespace matrix_minds
+{
+  class DisplayItem
+  {
+  public:
+    virtual vector<Line> getMesh() = 0;
   };
 }
 #endif

@@ -27,7 +27,7 @@ target_link_libraries(matrix_minds PRIVATE
     -lpthread
 )
 
-target_compile_features(matrix_minds PRIVATE cxx_std_17)
+target_compile_features(matrix_minds PRIVATE cxx_std_20)
 
 add_custom_target(run
     COMMAND ./matrix_minds    
