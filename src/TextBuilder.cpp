@@ -2,10 +2,16 @@
 
 using namespace matrix_minds;
 
-const CharacterNode* TextBuilder::builder_ = makeChefNode();
+static CharacterNode* makeChefNode() {
+    // Create the whole node structure here
+    Line line1(-1.0, -1.0, 2.0, 0.1, Color(255, 255, 255));
+    Line line2(0.85, -1.0, 2.0, 0.1, Color(255, 255, 255));
+    Line line3(-1.0, 0.0, 0.1, 2.0, Color(255, 255, 255));
 
-CharacterNode* makeChefNode() {
+    return new CharacterNode('H', { line1, line2, line3 });
 }
+
+const CharacterNode* TextBuilder::builder_ = makeChefNode();
 
 
 Shape CharacterNode::getLines(const char ch) const {
@@ -26,6 +32,7 @@ void CharacterNode::insert(const char ch, const Shape shape) {
 }
 
 const CharacterNode* CharacterNode::find(const char ch) const {
+    if (this == nullptr) { std::cout << "sosos" << endl;}
     if (this->ch_ == ch) {
         return this;
     }
@@ -33,7 +40,8 @@ const CharacterNode* CharacterNode::find(const char ch) const {
 }
 
 void TextBuilder::append(const char ch) {
-    this->nodes_.push_back(this->builder_->find(ch));
+    auto fund = this->builder_->find(ch);
+    this->nodes_.push_back(fund);
 }
 
 void TextBuilder::append(const char* str) {
@@ -45,7 +53,9 @@ void TextBuilder::append(const char* str) {
 Shape TextBuilder::build() const {
     Shape shape;
     for (const auto node : this->nodes_) {
-        shape.emplace_back(std::move(node->getLines()));
+        for (auto line : node->getLines()) {
+            shape.emplace_back(std::move(line));
+        }
     }
     return shape;
 }

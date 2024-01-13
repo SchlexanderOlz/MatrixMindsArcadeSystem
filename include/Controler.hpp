@@ -14,7 +14,7 @@ namespace matrix_minds
     Down,
     Up,
     AlternativeRight,
-    AlternativeLeft
+    AlternativeLeft,
   };
 
   class Controler

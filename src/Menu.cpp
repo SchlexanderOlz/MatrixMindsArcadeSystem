@@ -4,7 +4,7 @@ using namespace matrix_minds;
 
 void Menu::run() {
   for (;;) {
-    this->performAction(this->controler->getAction());
+    this->performAction(this->controler_->getAction());
   }
 }
 
@@ -41,7 +41,7 @@ void Menu::drawState() {
 
       // TODO: Handle overflow of apps here
       Line new_line(x, y, height, width, line.getColor());
-      this->engine->render(new_line);
+      this->engine_->render(new_line);
     }
   }
 }
