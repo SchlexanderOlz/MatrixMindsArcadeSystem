@@ -5,7 +5,7 @@
 #include <memory>
 #include <pugixml.hpp>
 
-#include "Line.hpp"
+#include "RectangularArea.hpp"
 
 using namespace std;
 

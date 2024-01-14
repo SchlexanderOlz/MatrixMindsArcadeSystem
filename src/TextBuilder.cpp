@@ -3,10 +3,10 @@
 using namespace matrix_minds;
 
 static CharacterNode* makeChefNode() {
-    // Create the whole node structure here
-    Line line1(-1.0, -1.0, 2.0, 0.1, Color(255, 255, 255));
-    Line line2(0.85, -1.0, 2.0, 0.1, Color(255, 255, 255));
-    Line line3(-1.0, 0.0, 0.1, 2.0, Color(255, 255, 255));
+    // Call method of the textbuilder which constructs this bs
+    RectangularArea line1(-1.0, -1.0, 2.0, 0.1, Color(255, 255, 255));
+    RectangularArea line2(0.85, -1.0, 2.0, 0.1, Color(255, 255, 255));
+    RectangularArea line3(-1.0, 0.0, 0.1, 2.0, Color(255, 255, 255));
 
     return new CharacterNode('H', { line1, line2, line3 });
 }
@@ -32,7 +32,6 @@ void CharacterNode::insert(const char ch, const Shape shape) {
 }
 
 const CharacterNode* CharacterNode::find(const char ch) const {
-    if (this == nullptr) { std::cout << "sosos" << endl;}
     if (this->ch_ == ch) {
         return this;
     }
@@ -53,6 +52,7 @@ void TextBuilder::append(const char* str) {
 Shape TextBuilder::build() const {
     Shape shape;
     for (const auto node : this->nodes_) {
+        // TODO: There has to be a different way to concatenate these two vectors without iterating over them
         for (auto line : node->getLines()) {
             shape.emplace_back(std::move(line));
         }

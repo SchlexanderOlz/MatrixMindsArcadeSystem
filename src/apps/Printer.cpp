@@ -12,7 +12,9 @@ void Printer::performAction(const Action action) {
     switch (action) {
         case Action::Left:
             this->builder_.append('H');
-            this->engine_->render(this->builder_.build());
+            for (auto line : this->builder_.build()) {
+                this->engine_->render(line);
+            }
             this->engine_->show();
             this->builder_.clear();
     };
