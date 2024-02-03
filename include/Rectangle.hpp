@@ -6,7 +6,7 @@
 using namespace rgb_matrix;
 
 namespace matrix_minds {
-  class Line {
+  class Rectangle {
     private:
       const double x;
       const double y;
@@ -15,7 +15,7 @@ namespace matrix_minds {
       const Color color;
 
     public:
-      Line(double x, double y, double height, double width, Color color) : x(x), y(y), height(height), width(width), color(color) {}
+      Rectangle(double x, double y, double height, double width, Color color) : x(x), y(y), height(height), width(width), color(color) {}
       
       inline double getPosX() const { return this->x; }
       inline double getPosY() const { return this->y; }
@@ -23,8 +23,6 @@ namespace matrix_minds {
       inline double getWidth() const { return this->width; }
       inline Color getColor() const { return this->color; }
   };
-
-  typedef std::vector<Line> Shape;
 }
 
 

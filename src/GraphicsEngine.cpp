@@ -3,15 +3,16 @@
 
 using namespace matrix_minds;
 
-void GraphicsEngine::render(const Shape shape) {
-  for (const Line line : shape) {
+void GraphicsEngine::render(const vector<Rectangle>& shape) {
+  for (const Rectangle& line : shape) {
     render(line);
   }
 }
 
-void GraphicsEngine::render(const Line line) {
-    const uint x = std::floor((line.getPosX() + 1.0) * ((double)this->getSizeX() / 2.0));
-    const uint y = std::floor((line.getPosY() + 1.0) * ((double)this->getSizeY() / 2.0));
+void GraphicsEngine::render(const Rectangle& line) {
+    const uint x = this->convertToMatrixX(line.getPosX());
+    const uint y = this->convertToMatrixY(line.getPosY());
+
     const uint height = std::ceil(line.getHeight() * (double)this->getSizeY());
     const uint width = std::ceil(line.getWidth() * (double)this->getSizeX());
     std::cout << "OX: " << x << " OY: " << y << " Heigt: " << height << " Width: " << width << endl;
@@ -23,4 +24,22 @@ void GraphicsEngine::render(const Line line) {
     }
     this->off_screen_canvas_->SetPixels(x, y, width, height, color);
     delete[] color;
+}
+
+void GraphicsEngine::render(const Triangle& triangle) {
+  auto range = triangle.getRange();
+  for (size_t x = range.first; x < range.second; ++x) {
+    auto y_range = triangle.getRangeAt(x);
+ 
+    const uint upper = this->convertToMatrixY(std::max(y_range.first, y_range.second));
+    const uint lower = this->convertToMatrixX(std::min(y_range.first, y_range.second));
+    const uint height = upper - lower;
+
+    Color* color = new Color[height]; 
+    for (size_t i = 0; i < height; ++i) {
+      color[i] = triangle.getColor();
+    }
+    this->off_screen_canvas_->SetPixels(x, lower, 1, height, color);
+    delete[] color;
+  }
 }

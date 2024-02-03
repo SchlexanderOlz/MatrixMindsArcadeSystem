@@ -12,7 +12,7 @@
 using namespace std;
 
 namespace matrix_minds {
-  typedef vector<Line> Icon;
+  typedef vector<Rectangle> Icon;
 
   class Menu : public App {
     private:

@@ -19,7 +19,9 @@ add_executable(matrix_minds ${SOURCES})
 
 link_directories(${LIBRARY_DIR})
 
+find_package(TBB REQUIRED)
 target_link_libraries(matrix_minds PRIVATE
+   ${TBB_IMPORTED_TARGETS} 
     -L./lib/matrix/lib
     -lrt
     -lm
@@ -27,7 +29,7 @@ target_link_libraries(matrix_minds PRIVATE
     -lpthread
 )
 
-target_compile_features(matrix_minds PRIVATE cxx_std_17)
+target_compile_features(matrix_minds PRIVATE cxx_std_20)
 
 add_custom_target(run
     COMMAND ./matrix_minds    

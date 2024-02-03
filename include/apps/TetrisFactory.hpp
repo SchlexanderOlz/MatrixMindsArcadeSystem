@@ -12,7 +12,7 @@ namespace matrix_minds {
       shared_ptr<GraphicsEngine> engine;
       shared_ptr<Controler> controler;
     public:
-      TetrisFactory(shared_ptr<GraphicsEngine> engine, shared_ptr<Controler> controler) : engine(engine), controler(controler) {}
+      TetrisFactory(const char* xml_path, const char* app_name, shared_ptr<GraphicsEngine> engine, shared_ptr<Controler> controler) : engine(engine), controler(controler), AppFactory(xml_path, app_name) {}
       inline shared_ptr<App> buildApp() const override { return shared_ptr<App>((App*)new Tetris(this->engine, this->controler)); }
   };
 }

@@ -13,7 +13,8 @@ namespace matrix_minds {
       const char* app_name;
 
     public:
-      AppFactory(const char* xml_path, const char* app_name) : app_name(app_name) {
+      AppFactory(const char* app_name) : app_name(app_name) {}
+      AppFactory(const char* app_name, const char* xml_path) : app_name(app_name) {
         pugi::xml_document doc;
         int res = doc.load_file(xml_path);
         if (!res) throw std::runtime_error("File not present at the requested location");

@@ -3,14 +3,14 @@
 
 #include <vector>
 
-#include "Line.hpp"
+#include "Rectangle.hpp"
 
 using namespace std;
 
 namespace matrix_minds {
   class DisplayItem {
     public:
-      virtual vector<Line> getMesh() = 0;
+      virtual vector<Rectangle> getMesh() = 0;
   };
 }
 #endif
