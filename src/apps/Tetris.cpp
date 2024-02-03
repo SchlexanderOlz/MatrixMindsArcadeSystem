@@ -16,7 +16,7 @@ void Tetris::run() {
 
 void Tetris::drawTitleScreen() {
   for (;;) {
-    this->performTitleScreenAction(this->controler->getAction());
+    this->performTitleScreenAction(this->controler_->getAction());
   };
 }
 
@@ -88,7 +88,7 @@ void Tetris::startGame() {
         }
       } 
       this->drawState();
-      this->engine->show();
+      this->engine_->show();
       lock.unlock();
       usleep(500000);
     }
@@ -96,11 +96,11 @@ void Tetris::startGame() {
 
   while (!has_ended) {
     try {
-      Action action = this->controler->getAction();
+      Action action = this->controler_->getAction();
       unique_lock<mutex> lock(this->mtx);
       this->performIngameAction(action);
       this->drawState();
-      this->engine->show();
+      this->engine_->show();
       lock.unlock();
       usleep(100);
     } catch (GameEnvOverflowException) { has_ended = true; }
@@ -163,8 +163,8 @@ void Tetris::drawState() const {
     }
   }
   constexpr double height = 1.95 - mt - 1.0;
-  const double block_width = 1.0 / this->engine->getSizeX();
-  const double block_height = 1.0 / this->engine->getSizeY();
+  const double block_width = 1.0 / this->engine_->getSizeX();
+  const double block_height = 1.0 / this->engine_->getSizeY();
 
   constexpr double hor_length = 1.1 - mr - ml;
   constexpr double x_offset = -1.05 + offset;

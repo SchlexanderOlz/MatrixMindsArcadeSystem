@@ -4,7 +4,7 @@ using namespace matrix_minds;
 
 void Menu::run() {
   for (;;) {
-    this->performAction(this->controler->getAction());
+    this->performAction(this->controler_->getAction());
   }
 }
 

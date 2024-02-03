@@ -6,11 +6,13 @@
 
 #include "App.hpp"
 
-namespace matrix_minds {
-  class AppFactory {
-    protected:
-      pugi::xml_node graphic_node;
-      const char* app_name;
+namespace matrix_minds
+{
+  class AppFactory
+  {
+  protected:
+    pugi::xml_node graphics_node;
+    const char *app_name;
 
     public:
       AppFactory(const char* app_name) : app_name(app_name) {}

@@ -1,8 +1,10 @@
 #ifndef CONTROLER
-#define CONTROLER 
+#define CONTROLER
 
-namespace matrix_minds {
-  enum class Action {
+namespace matrix_minds
+{
+  enum class Action
+  {
     Invalid,
     Confirm,
     Stop,
@@ -12,12 +14,13 @@ namespace matrix_minds {
     Down,
     Up,
     AlternativeRight,
-    AlternativeLeft
+    AlternativeLeft,
   };
 
-  class Controler {
-    public:
-      virtual Action getAction() = 0;
+  class Controler
+  {
+  public:
+    virtual Action getAction() = 0;
   };
 }
 

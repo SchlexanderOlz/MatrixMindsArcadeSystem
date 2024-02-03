@@ -27,6 +27,7 @@ target_link_libraries(matrix_minds PRIVATE
     -lm
     -lrgbmatrix
     -lpthread
+    -lopencv_core
 )
 
 target_compile_features(matrix_minds PRIVATE cxx_std_20)

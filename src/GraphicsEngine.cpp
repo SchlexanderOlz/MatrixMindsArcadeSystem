@@ -15,7 +15,6 @@ void GraphicsEngine::render(const Rectangle& line) {
 
     const uint height = std::ceil(line.getHeight() * (double)this->getSizeY());
     const uint width = std::ceil(line.getWidth() * (double)this->getSizeX());
-    std::cout << "OX: " << x << " OY: " << y << " Heigt: " << height << " Width: " << width << endl;
 
     Color template_color = line.getColor();
     Color* color = new Color[height * width]; // Check if the width is necessary
