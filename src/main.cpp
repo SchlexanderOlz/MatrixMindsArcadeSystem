@@ -3,7 +3,6 @@
 
 #include "Menu.hpp"
 #include "KeyboardControler.hpp"
-#include "apps/Printer.hpp"
 #include "apps/TetrisFactory.hpp"
 
 using namespace matrix_minds;
@@ -38,7 +37,7 @@ int main (int argc, char *argv[]) {
 
   shared_ptr<GraphicsEngine> engine = std::make_shared<GraphicsEngine>(std::move(matrix));
   shared_ptr<Controler> controler = std::make_shared<KeyboardControler>();
-  Printer menu(engine, controler);
+  Tetris menu(engine, controler);
 
   #ifdef SOS
   unique_ptr<TetrisFactory> tetris_factory = std::make_unique<TetrisFactory>(engine, controler);

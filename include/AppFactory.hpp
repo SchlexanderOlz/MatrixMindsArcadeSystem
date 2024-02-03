@@ -20,7 +20,7 @@ namespace matrix_minds
         pugi::xml_document doc;
         int res = doc.load_file(xml_path);
         if (!res) throw std::runtime_error("File not present at the requested location");
-        this->graphic_node = doc.child(app_name);
+        this->graphics_node = doc.child(app_name);
       }
       virtual shared_ptr<App> buildApp() const = 0;
   };

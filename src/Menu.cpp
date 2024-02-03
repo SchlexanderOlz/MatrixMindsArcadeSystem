@@ -41,7 +41,7 @@ void Menu::drawState() {
 
       // TODO: Handle overflow of apps here
       Rectangle new_line(x, y, height, width, line.getColor());
-      this->engine->render(new_line);
+      this->engine_->render(new_line);
     }
   }
 }
