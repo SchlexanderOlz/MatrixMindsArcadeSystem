@@ -27,17 +27,15 @@ void GraphicsEngine::render(const Rectangle& line) {
 
 void GraphicsEngine::render(const Triangle& triangle) {
   auto range = triangle.getRange();
-  for (size_t x = range.first; x < range.second; ++x) {
-    auto y_range = triangle.getRangeAt(x);
+  for (size_t x = range.first * this->getSizeX(); x < range.second * this->getSizeX(); ++x) {
+    const auto y_range = triangle.getRangeAt((static_cast<double>(x * 2) / this->getSizeX()) - 1.0);
  
     const uint upper = this->convertToMatrixY(std::max(y_range.first, y_range.second));
-    const uint lower = this->convertToMatrixX(std::min(y_range.first, y_range.second));
+    const uint lower = this->convertToMatrixY(std::min(y_range.first, y_range.second));
     const uint height = upper - lower;
 
-    Color* color = new Color[height]; 
-    for (size_t i = 0; i < height; ++i) {
-      color[i] = triangle.getColor();
-    }
+    Color* color = new Color[height];
+    std::fill(color, color + height, triangle.getColor());
     this->off_screen_canvas_->SetPixels(x, lower, 1, height, color);
     delete[] color;
   }

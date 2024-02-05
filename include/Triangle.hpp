@@ -10,13 +10,14 @@ namespace matrix_minds {
     struct Position {
         double x;
         double y;
+        Position(double x, double y) : x(x), y(y) {}
     };
 
     class Triangle {
     private:
-        const std::array<std::pair<const Position*, const Position*>, 3> _connections;
-        const std::array<Position, 3> _vertices;
-        const Color _color;
+        const std::array<std::pair<const Position*, const Position*>, 3> connections_;
+        const std::array<Position, 3> vertices_;
+        const Color color_;
 
 
         inline static std::array<std::pair<const Position*, const Position*>, 3> make_connections(const std::array<Position, 3>& vertices) {
@@ -28,10 +29,10 @@ namespace matrix_minds {
         } 
 
     public:
-        Triangle(std::array<Position, 3> vertices, Color color) : _connections(make_connections(vertices)), _vertices(std::move(vertices)), _color(color) {}
+        Triangle(std::array<Position, 3> vertices, Color color) : connections_(make_connections(vertices)), vertices_(std::move(vertices)), color_(color) {}
         
         std::pair<double, double> getRangeAt(double x) const;
-        inline Color getColor() const { return this->_color; }
+        inline Color getColor() const { return this->color_; }
         std::pair<double, double> getRange() const;
   };
 }

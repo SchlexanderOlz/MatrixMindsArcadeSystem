@@ -6,6 +6,7 @@
 #include <memory>
 #include <iostream>
 #include <math.h>
+#include <algorithm>
 
 #include "Triangle.hpp"
 #include "Rectangle.hpp"
