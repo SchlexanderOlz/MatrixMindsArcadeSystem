@@ -27,8 +27,8 @@ void GraphicsEngine::render(const Rectangle& line) {
 
 void GraphicsEngine::render(const Triangle& triangle) {
   auto range = triangle.getRange();
-  for (size_t x = range.first * this->getSizeX(); x < range.second * this->getSizeX(); ++x) {
-    const auto y_range = triangle.getRangeAt((static_cast<double>(x * 2) / this->getSizeX()) - 1.0);
+  for (uint x = this->convertToMatrixX(range.first); x <= this->convertToMatrixX(range.second); ++x) {
+    const auto y_range = triangle.getRangeAt((static_cast<double>(x) / static_cast<double>(this->getSizeX() / 2.0)) - 1.0);
  
     const uint upper = this->convertToMatrixY(std::max(y_range.first, y_range.second));
     const uint lower = this->convertToMatrixY(std::min(y_range.first, y_range.second));

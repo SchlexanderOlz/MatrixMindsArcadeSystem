@@ -19,13 +19,12 @@ namespace matrix_minds {
         const std::array<Position, 3> vertices_;
         const Color color_;
 
-
         inline static std::array<std::pair<const Position*, const Position*>, 3> make_connections(const std::array<Position, 3>& vertices) {
             std::array<std::pair<const Position*, const Position*>, 3> connections;
             for (size_t i = 0; i < connections.size(); ++i) {
                 connections[i] = std::make_pair(&vertices[i % vertices.size()], &vertices[(i + 1) % vertices.size()]);
             }
-            return std::move(connections);
+            return connections;
         } 
 
     public:
