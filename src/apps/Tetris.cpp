@@ -126,7 +126,7 @@ void Tetris::mapBlock(const tetris::Block* block, uint x, uint y,  const double 
   double width = ((1.0 - ml - mr) / (double)this->game.getSizeX()) / 2.0;
   double height = ((1.0 - mt - mb) / (double)this->game.getSizeY()) / 2.0;
   Rectangle line(x_pos, y_pos, height, width, Tetris::translateColor(block->getColor()));
-  this->engine_->render(std::move(line));
+  this->engine_->render(&line);
 }
 
 void Tetris::mapShape(const tetris::Shape& shape, const double x_offset, const double y_offset) const {
@@ -173,16 +173,16 @@ void Tetris::drawState() const {
   const Color color = Color(100, 100, 100);
 
   Rectangle line_1(x_offset, y_offset, block_height, hor_length, color);
-  this->engine_->render(std::move(line_1));
+  this->engine_->render(&line_1);
 
   Rectangle line_2(x_offset, y_offset, height, block_width, color);
-  this->engine_->render(std::move(line_2));
+  this->engine_->render(&line_2);
 
   Rectangle line_3(ml + offset + 0.1, y_offset, height, block_width, color);
-  this->engine_->render(std::move(line_3));
+  this->engine_->render(&line_3);
 
   Rectangle line_4(x_offset, 0.95 - mt, block_height, hor_length, color);
-  this->engine_->render(std::move(line_4));
+  this->engine_->render(&line_4);
 }
 
 Color Tetris::translateColor(const tetris::Color color) {

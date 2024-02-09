@@ -4,6 +4,8 @@
 #include <led-matrix.h>
 #include <array>
 
+#include "DisplayItem.hpp"
+
 using namespace rgb_matrix;
 
 namespace matrix_minds {
@@ -13,11 +15,10 @@ namespace matrix_minds {
         Position(double x, double y) : x(x), y(y) {}
     };
 
-    class Triangle {
+    class Triangle : public DisplayItem {
     private:
         const std::array<std::pair<const Position*, const Position*>, 3> connections_;
         const std::array<Position, 3> vertices_;
-        const Color color_;
 
         inline static std::array<std::pair<const Position*, const Position*>, 3> make_connections(const std::array<Position, 3>& vertices) {
             std::array<std::pair<const Position*, const Position*>, 3> connections;
@@ -28,11 +29,9 @@ namespace matrix_minds {
         } 
 
     public:
-        Triangle(std::array<Position, 3> vertices, Color color) : connections_(make_connections(vertices)), vertices_(std::move(vertices)), color_(color) {}
-        
-        std::pair<double, double> getRangeAt(double x) const;
-        inline Color getColor() const { return this->color_; }
-        std::pair<double, double> getRange() const;
+        Triangle(std::array<Position, 3> vertices, Color color) : connections_(make_connections(vertices)), vertices_(std::move(vertices)), DisplayItem(std::move(color)) {}
+        std::pair<double, double> getRangeAt(double x) const override;
+        std::pair<double, double> getRange() const override;
   };
 }
 

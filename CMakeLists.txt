@@ -28,8 +28,10 @@ include_directories(${rgbmatrix_SOURCE_DIR}/include)
 include_directories(${pugixml_SOURCE_DIR}/src)
 include_directories(${INCLUDE_DIRS})
 
+find_package(TBB REQUIRED)
 target_link_libraries(matrix_minds PRIVATE
-   ${RGBMATRIX_LIBRARIES}
+    ${RGBMATRIX_LIBRARIES}
+    ${TBB_IMPORTED_TARGETS} 
     -L./lib/matrix/lib
     -lrt
     -lm
