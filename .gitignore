@@ -45,3 +45,4 @@ matrix_minds
 CMakeFiles
 .vscode
 *.json
+_deps
