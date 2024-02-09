@@ -37,6 +37,16 @@ unique_ptr<Field> TextFieldFactory::build(map<string, string> args) const {
   return std::make_unique<TextField>(id, x, y, content);
 }
 
+unique_ptr<Field> BoxFieldFactory::build(map<string, string> args) const {
+  string id = args.find("id")->second;
+  double x = std::stod(args.find("x")->second);
+  double y = std::stod(args.find("y")->second);
+  double height = std::stod(args.find("height")->second);
+  double width = std::stod(args.find("width")->second);
+  string content = args.find("content")->second;
+  return std::make_unique<Box>(id, x, y, height, width);
+}
+
 shared_ptr<FieldFactory> FieldTypes::get(const string &field_name) {
   auto factory_iter =
       std::find_if(FieldTypes::fields_.begin(), FieldTypes::fields_.end(),

@@ -8,6 +8,9 @@
 
 namespace matrix_minds
 {
+  /**
+   * @brief Abstract factory for apps. Currently requires a .xml file for each app.
+  */
   class AppFactory
   {
   protected:

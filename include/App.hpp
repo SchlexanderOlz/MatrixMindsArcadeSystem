@@ -11,6 +11,9 @@ using namespace std;
 
 namespace matrix_minds
 {
+  /**
+   * @brief Abstract App interface
+  */
   class App
   {
   protected:
