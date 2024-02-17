@@ -3,8 +3,8 @@
 
 #include <memory>
 
-#include "GraphicsEngine.hpp"
 #include "DisplayItem.hpp"
+#include "GraphicsEngine.hpp"
 #include "Controler.hpp"
 
 using namespace std;

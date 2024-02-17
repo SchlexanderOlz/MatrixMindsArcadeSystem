@@ -1,5 +1,5 @@
-#ifndef GRAPHIC_ENGINE
-#define GRAPHIC_ENGINE
+#ifndef GRAPHICS_ENGINE
+#define GRAPHICS_ENGINE
 
 #include <algorithm>
 #include <graphics.h>
@@ -8,10 +8,7 @@
 #include <math.h>
 #include <memory>
 
-#include "DisplayItem.hpp"
-#include "Rectangle.hpp"
 #include "StaticGraphics.hpp"
-#include "Triangle.hpp"
 
 #define DEFAULT_FONT_PATH "./default.ppm"
 
@@ -19,6 +16,9 @@ using namespace std;
 using namespace rgb_matrix;
 
 namespace matrix_minds {
+class Rectangle;
+class TextField;
+class DisplayItem;
 /**
  * @brief Rendering Component for displaying of different objects.
  */
@@ -90,4 +90,5 @@ public:
   uint getSizeY() const { return this->matrix_->height() - 1; }
 };
 } // namespace matrix_minds
+
 #endif

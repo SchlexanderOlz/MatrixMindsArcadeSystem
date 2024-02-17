@@ -5,7 +5,18 @@ project(MatrixMindsArcade)
 set(SOURCE_DIR "src")
 set(CMAKE_CXX_STANDARD 20)
 
-file(GLOB_RECURSE SOURCES "${SOURCE_DIR}/*.cpp")
+file(GLOB_RECURSE APP_SOURCES "${SOURCE_DIR}/apps/*.cpp")
+
+set(MAIN_SOURCES
+    ${SOURCE_DIR}/KeyboardControler.cpp
+    ${SOURCE_DIR}/Menu.cpp
+    ${SOURCE_DIR}/DisplayItem.cpp
+    ${SOURCE_DIR}/Rectangle.cpp
+    ${SOURCE_DIR}/Triangle.cpp
+    ${SOURCE_DIR}/StaticGraphics.cpp
+    ${SOURCE_DIR}/GraphicsEngine.cpp
+    ${SOURCE_DIR}/main.cpp
+)
 
 set(INCLUDE_DIRS
     lib/matrix/include
@@ -22,7 +33,7 @@ FetchContent_MakeAvailable(rgbmatrix)
 FetchContent_MakeAvailable(pugixml)
 
 
-add_executable(matrix_minds ${SOURCES})
+add_executable(matrix_minds ${MAIN_SOURCES} ${APP_SOURCES})
 
 include_directories(${rgbmatrix_SOURCE_DIR}/include)
 include_directories(${pugixml_SOURCE_DIR}/src)

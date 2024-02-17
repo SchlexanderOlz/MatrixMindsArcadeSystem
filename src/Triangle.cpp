@@ -3,7 +3,6 @@
 
 using namespace matrix_minds;
 
-#include <iostream>
 std::pair<double, double> Triangle::getRangeAt(double x) const {
     constexpr double epsilon = 1e-10; // TODO: Move this in some global file
 
@@ -56,4 +55,8 @@ std::pair<double, double> Triangle::getRange() const {
         if (vertex.x > biggest) biggest = vertex.x;
     }
     return std::make_pair(smallest, biggest);
+}
+
+void Triangle::display(shared_ptr<GraphicsEngine> engine) const {
+    engine->render(this);
 }

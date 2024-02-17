@@ -4,6 +4,7 @@
 #include "Menu.hpp"
 #include "KeyboardControler.hpp"
 #include "apps/TetrisFactory.hpp"
+#include "Triangle.hpp"
 
 using namespace matrix_minds;
 
@@ -38,7 +39,7 @@ int main (int argc, char *argv[]) {
   shared_ptr<GraphicsEngine> engine = std::make_shared<GraphicsEngine>(std::move(matrix));
   shared_ptr<Controler> controler = std::make_shared<KeyboardControler>();
   Triangle tangle({ Position(1.0, -1.0), Position(1.0, 1.0), Position(0.0, 1.0) }, Color(100, 100, 100));
-  engine->render(tangle);
+  engine->render(&tangle);
   engine->show();
   while (true) {}
   #ifdef SOS

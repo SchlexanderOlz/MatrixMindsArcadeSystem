@@ -11,11 +11,11 @@ void Menu::run() {
 void Menu::performAction(const Action action) {
   switch (action) {
     case Action::Right:
-      focused_app_idx++;
+      this->focused_app_idx++;
     case Action::Left:
-      std::min(--focused_app_idx, apps.size());
+      std::min(this->focused_app_idx--, this->apps.size());
     case Action::Confirm:
-      this->apps[focused_app_idx].first->buildApp()->run();
+      this->apps[this->focused_app_idx].first->buildApp()->run();
     default:
       return;
   }
@@ -31,17 +31,19 @@ void Menu::drawState() {
   constexpr uint8_t items = 3;
   constexpr float scale = 0.2;
 
-  for (size_t i = 0; i < apps.size(); i++) {
+  for (size_t i = 0; i < this->apps.size(); i++) {
     // TODO: Multi-thread this when possible
-    for (const Rectangle line : apps[i].second) {
-      const float x = line.getPosX() * scale + ml + ((1.0 - ml) / items) * (i % items);
-      const float y = line.getPosY() * scale + (i / items) * (scale + mb);
-      const float height = line.getHeight() * scale;
-      const float width = line.getWidth() * scale;
+    for (const shared_ptr<DisplayItem> line : this->apps[i].second) {
+      /* const float x = line->getPosX() * scale + ml + ((1.0 - ml) / items) * (i % items);
+      const float y = line->getPosY() * scale + (i / items) * (scale + mb);
+      const float height = line->getHeight() * scale;
+      const float size = line->getRangeAt()
+      const float width = line->getWidth() * scale;
 
       // TODO: Handle overflow of apps here
-      Rectangle new_line(x, y, height, width, line.getColor());
-      this->engine_->render(new_line);
+      Rectangle new_line(x, y, height, width, line->getColor());
+      this->engine_->render(&new_line); */
+      this->engine_->render(line.get());
     }
   }
 }

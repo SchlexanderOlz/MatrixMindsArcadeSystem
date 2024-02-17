@@ -70,3 +70,5 @@ void StaticGraphics::display(shared_ptr<GraphicsEngine> engine) const {
     field->apply(engine);
   }
 }
+
+vector<unique_ptr<FieldFactory>> FieldTypes::fields_ = {};

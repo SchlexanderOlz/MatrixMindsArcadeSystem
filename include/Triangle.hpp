@@ -1,10 +1,13 @@
 #ifndef TRIANGLE 
 #define TRIANGLE
 
+#include <iostream>
 #include <led-matrix.h>
+#include <memory>
 #include <array>
 
 #include "DisplayItem.hpp"
+#include "GraphicsEngine.hpp"
 
 using namespace rgb_matrix;
 
@@ -29,9 +32,11 @@ namespace matrix_minds {
         } 
 
     public:
-        Triangle(std::array<Position, 3> vertices, Color color) : connections_(make_connections(vertices)), vertices_(std::move(vertices)), DisplayItem(std::move(color)) {}
+        Triangle(std::array<Position, 3> vertices, Color color) : DisplayItem(std::move(color)), connections_(make_connections(vertices)), vertices_(std::move(vertices)) {}
         std::pair<double, double> getRangeAt(double x) const override;
         std::pair<double, double> getRange() const override;
+        void display(shared_ptr<GraphicsEngine> engine) const override;
+        ~Triangle() override = default;
   };
 }
 

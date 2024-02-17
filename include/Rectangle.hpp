@@ -1,11 +1,14 @@
-#ifndef LINE
-#define LINE
+#ifndef RECTANGLE 
+#define RECTANGLE 
 
 #include <led-matrix.h>
+#include <memory>
 
+#include "GraphicsEngine.hpp"
 #include "DisplayItem.hpp"
 
 using namespace rgb_matrix;
+using namespace std;
 
 namespace matrix_minds {
 class Rectangle : public DisplayItem {
@@ -17,8 +20,7 @@ private:
 
 public:
   Rectangle(double x, double y, double height, double width, Color color)
-      : x(x), y(y), height(height), width(width),
-        DisplayItem(std::move(color)) {}
+      : DisplayItem(std::move(color)), x(x), y(y), height(height), width(width) {}
 
   inline double getPosX() const { return this->x; }
   inline double getPosY() const { return this->y; }
@@ -29,9 +31,9 @@ public:
   inline std::pair<double, double> getRange() const override {
     return std::make_pair(this->x, this->x + width);
   }
-  inline void display(shared_ptr<GraphicsEngine> engine) const override {
-    engine->render(this);
-  }
+  void display(shared_ptr<GraphicsEngine> engine) const override;
+
+  ~Rectangle() override = default;
 };
 }; // namespace matrix_minds
 
