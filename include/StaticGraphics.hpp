@@ -16,6 +16,14 @@ using namespace rgb_matrix;
 
 namespace matrix_minds {
 class GraphicsEngine;
+
+class StructureNode {
+public:
+  vector<unique_ptr<StructureNode>> children;
+  string name;
+  map<string, string> attributes;
+};
+
 #pragma region Fields
 class Field {
 private:
@@ -121,6 +129,7 @@ public:
    */
   void instanciateField(const string &field_name,
                         const map<string, string> args);
+  void loadFromStructure(const StructureNode* node);
   /**
    * @brief Displays all contents of the StaticGraphic to the given
    * GraphicsEngine

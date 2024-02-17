@@ -30,6 +30,7 @@ void Box::apply(shared_ptr<GraphicsEngine> engine) const {
 }
 
 unique_ptr<Field> TextFieldFactory::build(map<string, string> args) const {
+  // Maybe make this into a private constructor
   string id = args.find("id")->second;
   double x = std::stod(args.find("x")->second);
   double y = std::stod(args.find("y")->second);
@@ -38,6 +39,7 @@ unique_ptr<Field> TextFieldFactory::build(map<string, string> args) const {
 }
 
 unique_ptr<Field> BoxFieldFactory::build(map<string, string> args) const {
+  // Maybe make this into a private constructor
   string id = args.find("id")->second;
   double x = std::stod(args.find("x")->second);
   double y = std::stod(args.find("y")->second);
@@ -68,6 +70,14 @@ void StaticGraphics::display(shared_ptr<GraphicsEngine> engine) const {
   // Look into concurrency here
   for (const auto &field : this->active_fields_) {
     field->apply(engine);
+  }
+}
+
+void StaticGraphics::loadFromStructure(const StructureNode* node) {
+  // Come back here for child-parent thematics and inheriting attributes
+  FieldTypes::get(node->name)->build(node->attributes)
+  for (const auto& child : node->children) {
+    this->loadFromStructure(child.get());
   }
 }
 
