@@ -67,8 +67,8 @@ private:
   void mapShape(const tetris::Shape &shape) const;
 
 public:
-  Tetris(shared_ptr<GraphicsEngine> engine, shared_ptr<Controler> controler)
-      : App(engine, controler), game(tetris::GameEnv()) {}
+  Tetris(shared_ptr<GraphicsEngine> engine, shared_ptr<Controler> controler, StaticGraphics graphics)
+      : App(engine, controler, std::move(graphics)), game(tetris::GameEnv()) {}
   void run() override;
   /**
    * @brief Draws the current state of the game directly to the graphicsEngine.

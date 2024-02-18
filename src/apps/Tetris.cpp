@@ -11,6 +11,7 @@ constexpr double offset = 0.6;
 
 
 void Tetris::run() {
+  startGame();
   this->drawTitleScreen();
 }
 
@@ -123,8 +124,8 @@ void Tetris::mapBlock(const tetris::Block* block, uint x, uint y) const {
 void Tetris::mapBlock(const tetris::Block* block, uint x, uint y,  const double x_offset, const double y_offset) const {
   double x_pos = ((x * (1.0 - ml - mr)) * 2.0) / (double)this->game.getSizeX() + offset + x_offset - 1.0;
   double y_pos = ((y * (1.0 - mt - mb)) * 2.0) / (double)this->game.getSizeY() + y_offset - 1.0;
-  double width = ((1.0 - ml - mr) / (double)this->game.getSizeX()) / 2.0;
-  double height = ((1.0 - mt - mb) / (double)this->game.getSizeY()) / 2.0;
+  double width = ((1.0 - ml - mr) / (double)this->game.getSizeX());
+  double height = ((1.0 - mt - mb) / (double)this->game.getSizeY());
   Rectangle line(x_pos, y_pos, height, width, Tetris::translateColor(block->getColor()));
   this->engine_->render(&line);
 }
@@ -172,17 +173,7 @@ void Tetris::drawState() const {
 
   const Color color = Color(100, 100, 100);
 
-  Rectangle line_1(x_offset, y_offset, block_height, hor_length, color);
-  this->engine_->render(&line_1);
-
-  Rectangle line_2(x_offset, y_offset, height, block_width, color);
-  this->engine_->render(&line_2);
-
-  Rectangle line_3(ml + offset + 0.1, y_offset, height, block_width, color);
-  this->engine_->render(&line_3);
-
-  Rectangle line_4(x_offset, 0.95 - mt, block_height, hor_length, color);
-  this->engine_->render(&line_4);
+  this->static_graphics_.display(this->engine_);
 }
 
 Color Tetris::translateColor(const tetris::Color color) {

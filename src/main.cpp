@@ -38,14 +38,16 @@ int main (int argc, char *argv[]) {
 
   shared_ptr<GraphicsEngine> engine = std::make_shared<GraphicsEngine>(std::move(matrix));
   shared_ptr<Controler> controler = std::make_shared<KeyboardControler>();
-  Triangle tangle({ Position(1.0, -1.0), Position(1.0, 1.0), Position(0.0, 1.0) }, Color(100, 100, 100));
-  engine->render(&tangle);
-  engine->show();
-  while (true) {}
-  #ifdef SOS
-  Tetris menu(engine, controler);
+  // Triangle tangle({ Position(1.0, -1.0), Position(1.0, 1.0), Position(0.0, 1.0) }, Color(100, 100, 100));
+  // engine->render(&tangle);
+  // engine->show();
+  // while (true) {}
 
   unique_ptr<TetrisFactory> tetris_factory = std::make_unique<TetrisFactory>(engine, controler);
+  shared_ptr<App> tetris = tetris_factory->buildApp();
+  tetris->run();
+
+  #ifdef SOS
   Line tmp(0.1, 0.1, 0.1, 0.1, Color(0, 100, 0));
   Line tmp2(0.1, 0.2, 0.1, 0.1, Color(0, 0, 100));
   menu.registerApp(std::move(tetris_factory), {tmp, tmp2});

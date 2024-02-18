@@ -15,16 +15,18 @@ void GraphicsEngine::render(const vector<const DisplayItem *> &shape) {
 }
 
 void GraphicsEngine::loadDefaultFont(const string &path) {
-  if (this->default_font == nullptr)
+  if (this->default_font != nullptr)
     return;
   auto tmp = std::make_unique<Font>();
   this->default_font.swap(tmp);
-  this->default_font->LoadFont(path.c_str());
+  if (!this->default_font->LoadFont(path.c_str())) {
+    throw runtime_error("Foudn not at specified path");
+  }
 }
 
 void GraphicsEngine::render(const TextField *text) {
   this->loadDefaultFont(DEFAULT_FONT_PATH);
-  DrawText(this->off_screen_canvas_, *this->default_font,
+  DrawText(this->off_screen_canvas_, *(this->default_font.get()),
            (int)this->convertToMatrixX(text->getX()),
            (int)this->convertToMatrixY(text->getY()) +
                this->default_font->baseline(),
@@ -35,8 +37,8 @@ void GraphicsEngine::render(const Rectangle *line) {
   const uint x = this->convertToMatrixX(line->getPosX());
   const uint y = this->convertToMatrixY(line->getPosY());
 
-  const uint height = std::ceil(line->getHeight() * (double)this->getSizeY());
-  const uint width = std::ceil(line->getWidth() * (double)this->getSizeX());
+  const uint height = std::ceil((line->getHeight() / 2.0) * (double)this->getSizeY());
+  const uint width = std::ceil((line->getWidth() / 2.0) * (double)this->getSizeX());
 
   Color template_color = line->getColor();
   Color *color = new Color[height * width];

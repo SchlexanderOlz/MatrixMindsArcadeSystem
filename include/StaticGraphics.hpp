@@ -93,7 +93,7 @@ public:
 
 class PositionalFieldFactory : public FieldFactory {
 public:
-  PositionalFieldFactory(string name) : FieldFactory(std::move(name)){};
+  PositionalFieldFactory(const string name) : FieldFactory(std::move(name)){};
 };
 
 class TextFieldFactory : public PositionalFieldFactory {
@@ -118,6 +118,8 @@ private:
   vector<unique_ptr<Field>> active_fields_;
 
 public:
+  StaticGraphics(const StructureNode* node) { this->loadStructure(node); }
+  StaticGraphics() : active_fields_() {}
   /**
    * @brief Adds a new field to be displayed by name.
    * @param field_name Name as an xml, of the field
@@ -129,7 +131,8 @@ public:
    */
   void instanciateField(const string &field_name,
                         const map<string, string> args);
-  void loadFromStructure(const StructureNode* node);
+
+  void loadStructure(const StructureNode* node);
   /**
    * @brief Displays all contents of the StaticGraphic to the given
    * GraphicsEngine
@@ -145,7 +148,6 @@ public:
 class FieldTypes {
 private:
   static vector<unique_ptr<FieldFactory>> fields_;
-
 public:
 /**
  * @brief Adds another field-factory to the valid fields. Fields are recommended be added at the start of the application (Not required).
@@ -158,7 +160,7 @@ public:
    * @brief Returns a factory by a given identifier.
    * @param field_name The unique identifier by which the field can be identified in xml.
   */
-  static shared_ptr<FieldFactory> get(const string &field_name);
+  static FieldFactory* get(const string &field_name);
 };
 } // namespace matrix_minds
 

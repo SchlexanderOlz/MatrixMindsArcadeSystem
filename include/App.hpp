@@ -22,7 +22,7 @@ namespace matrix_minds
     shared_ptr<Controler> controler_;
     StaticGraphics static_graphics_;
   public:
-    App(shared_ptr<GraphicsEngine> engine, shared_ptr<Controler> controler, StaticGraphics static_graphics) : engine_(engine), controler_(controler), static_graphics_(static_graphics) {}
+    App(shared_ptr<GraphicsEngine> engine, shared_ptr<Controler> controler, StaticGraphics static_graphics) : engine_(engine), controler_(controler), static_graphics_(std::move(static_graphics)) {}
 
     virtual void run() = 0;
   };

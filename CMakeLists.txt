@@ -4,6 +4,7 @@ project(MatrixMindsArcade)
 
 set(SOURCE_DIR "src")
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_BUILD_TYPE Debug)
 
 file(GLOB_RECURSE APP_SOURCES "${SOURCE_DIR}/apps/*.cpp")
 
@@ -32,6 +33,12 @@ GIT_TAG b2b466403084667c90a0f0cc4e960405cfc8117a)
 FetchContent_MakeAvailable(rgbmatrix)
 FetchContent_MakeAvailable(pugixml)
 
+# Read the contents of the file into a CMake variable
+file(READ "./include/apps/Tetris.xml" TETRIS_CONTENT)
+
+# Generate a C++ header file with the file content as a string literal
+file(WRITE "TetrisContent.hpp" "#pragma once\n\nconstexpr char* tetris_XML = R\"(${TETRIS_CONTENT})\";")
+
 
 add_executable(matrix_minds ${MAIN_SOURCES} ${APP_SOURCES})
 
@@ -48,7 +55,10 @@ target_link_libraries(matrix_minds PRIVATE
     -lm
     -lrgbmatrix
     -lpthread
+    -lpugixml
 )
+
+target_include_directories(matrix_minds PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 add_custom_target(run
     COMMAND ./matrix_minds    
