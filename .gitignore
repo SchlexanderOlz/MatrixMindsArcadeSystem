@@ -46,3 +46,5 @@ CMakeFiles
 .vscode
 *.json
 _deps
+*.bdf
+*.ppm
