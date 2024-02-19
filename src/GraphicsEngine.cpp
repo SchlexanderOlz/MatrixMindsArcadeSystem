@@ -14,6 +14,7 @@ void GraphicsEngine::render(const vector<const DisplayItem *> &shape) {
   }
 }
 
+// TODO: Implement different font-sizes
 void GraphicsEngine::loadDefaultFont(const string &path) {
   if (this->default_font != nullptr)
     return;

@@ -2,52 +2,6 @@
 
 using namespace matrix_minds;
 
-void TextField::apply(shared_ptr<GraphicsEngine> engine) const {
-  engine->render(this);
-}
-
-void Box::apply(shared_ptr<GraphicsEngine> engine) const {
-  const double pxx1 = 1.0 / engine->getSizeX();
-  const double pxy1 = 1.0 / engine->getSizeY();
-
-  Rectangle line_1(this->x - (this->width / 2.0),
-                   this->y - (this->height / 2.0), this->height, pxx1,
-                   this->color);
-  Rectangle line_2(this->x + (this->width / 2.0),
-                   this->y - (this->height / 2.0), this->height, pxx1,
-                   this->color);
-  Rectangle line_3(this->x - (this->width / 2.0),
-                   this->y - (this->height / 2.0), pxy1, this->width,
-                   this->color);
-  Rectangle line_4(this->x - (this->width / 2.0),
-                   this->y + (this->height / 2.0), pxy1, this->width,
-                   this->color);
-
-  engine->render(&line_1);
-  engine->render(&line_2);
-  engine->render(&line_3);
-  engine->render(&line_4);
-}
-
-unique_ptr<Field> TextFieldFactory::build(map<string, string> args) const {
-  // Maybe make this into a private constructor
-  string id = args.find("id")->second;
-  double x = std::stod(args.find("x")->second);
-  double y = std::stod(args.find("y")->second);
-  string content = args.find("content")->second;
-  return std::make_unique<TextField>(id, x, y, content);
-}
-
-unique_ptr<Field> BoxFieldFactory::build(map<string, string> args) const {
-  // Maybe make this into a private constructor
-  string id = args.find("id")->second;
-  double x = std::stod(args.find("x")->second);
-  std::cout << "x: " << x << std::endl; 
-  double y = std::stod(args.find("y")->second);
-  double height = std::stod(args.find("height")->second);
-  double width = std::stod(args.find("width")->second);
-  return std::make_unique<Box>(id, x, y, height, width);
-}
 
 FieldFactory* FieldTypes::get(const string &field_name) {
   auto factory_iter =

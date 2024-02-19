@@ -10,7 +10,7 @@
 
 #include "StaticGraphics.hpp"
 
-#define DEFAULT_FONT_PATH "/home/pi/Code/MatrixMindsArcadeSystem/include/default.ppm"
+#define DEFAULT_FONT_PATH "/home/pi/Code/MatrixMindsArcadeSystem/include/4pxmono-nerd.bdf"
 
 using namespace std;
 using namespace rgb_matrix;

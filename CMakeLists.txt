@@ -6,18 +6,7 @@ set(SOURCE_DIR "src")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_BUILD_TYPE Debug)
 
-file(GLOB_RECURSE APP_SOURCES "${SOURCE_DIR}/apps/*.cpp")
-
-set(MAIN_SOURCES
-    ${SOURCE_DIR}/KeyboardControler.cpp
-    ${SOURCE_DIR}/Menu.cpp
-    ${SOURCE_DIR}/DisplayItem.cpp
-    ${SOURCE_DIR}/Rectangle.cpp
-    ${SOURCE_DIR}/Triangle.cpp
-    ${SOURCE_DIR}/StaticGraphics.cpp
-    ${SOURCE_DIR}/GraphicsEngine.cpp
-    ${SOURCE_DIR}/main.cpp
-)
+file(GLOB_RECURSE APP_SOURCES "${SOURCE_DIR}/*.cpp")
 
 set(INCLUDE_DIRS
     lib/matrix/include
@@ -40,7 +29,7 @@ file(READ "./include/apps/Tetris.xml" TETRIS_CONTENT)
 file(WRITE "TetrisContent.hpp" "#pragma once\n\nconstexpr char* tetris_XML = R\"(${TETRIS_CONTENT})\";")
 
 
-add_executable(matrix_minds ${MAIN_SOURCES} ${APP_SOURCES})
+add_executable(matrix_minds ${APP_SOURCES})
 
 include_directories(${rgbmatrix_SOURCE_DIR}/include)
 include_directories(${pugixml_SOURCE_DIR}/src)
